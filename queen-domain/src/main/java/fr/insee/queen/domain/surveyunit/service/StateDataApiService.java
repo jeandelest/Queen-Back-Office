@@ -1,6 +1,7 @@
 package fr.insee.queen.domain.surveyunit.service;
 
 import fr.insee.queen.domain.common.exception.EntityNotFoundException;
+import fr.insee.queen.domain.surveyunit.model.StateDataType;
 import fr.insee.queen.domain.surveyunit.service.exception.StateDataInvalidDateException;
 import fr.insee.queen.domain.surveyunit.gateway.StateDataRepository;
 import fr.insee.queen.domain.surveyunit.model.StateData;
@@ -41,5 +42,9 @@ public class StateDataApiService implements StateDataService {
             throw new StateDataInvalidDateException(INVALID_DATE_MESSAGE);
         }
         stateDataRepository.save(surveyUnitId, stateData);
+    }
+
+    public void updateStateData(String surveyUnitId, StateDataType stateDataType) {
+        stateDataRepository.updateStateData(surveyUnitId, stateDataType);
     }
 }

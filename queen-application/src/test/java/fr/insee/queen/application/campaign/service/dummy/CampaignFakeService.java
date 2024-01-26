@@ -26,6 +26,11 @@ public class CampaignFakeService implements CampaignService {
     }
 
     @Override
+    public CampaignSummary getCampaignSummary(String campaignId) {
+        return null;
+    }
+
+    @Override
     public void delete(String campaignId) {
         this.deleted = true;
     }

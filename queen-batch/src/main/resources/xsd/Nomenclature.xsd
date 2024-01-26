@@ -1,0 +1,17 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Nomenclatures">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Nomenclature" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Nomenclature" type="NomenclatureType"/>
+	<xs:complexType name="NomenclatureType">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string" />
+			<xs:element name="Label" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

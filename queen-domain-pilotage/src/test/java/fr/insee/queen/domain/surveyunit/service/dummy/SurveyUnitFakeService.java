@@ -1,9 +1,6 @@
 package fr.insee.queen.domain.surveyunit.service.dummy;
 
-import fr.insee.queen.domain.surveyunit.model.SurveyUnit;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitDepositProof;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitState;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitSummary;
+import fr.insee.queen.domain.surveyunit.model.*;
 import fr.insee.queen.domain.surveyunit.service.SurveyUnitService;
 import lombok.Getter;
 import lombok.Setter;
@@ -68,6 +65,11 @@ public class SurveyUnitFakeService implements SurveyUnitService {
     }
 
     @Override
+    public void updateSurveyUnitSummary(SurveyUnitSummary surveyUnit) {
+
+    }
+
+    @Override
     public void createSurveyUnit(SurveyUnit surveyUnit) {
 
     }
@@ -84,11 +86,6 @@ public class SurveyUnitFakeService implements SurveyUnitService {
     public Optional<SurveyUnitSummary> findSummaryById(String surveyUnitId) {
         SurveyUnitSummary surveyUnit = new SurveyUnitSummary(surveyUnitId, "questionnaire-id", "campaign-id");
         return Optional.of(surveyUnit);
-    }
-
-    @Override
-    public List<SurveyUnitState> findWithStateByIds(List<String> surveyUnits) {
-        return null;
     }
 
     @Override
@@ -117,5 +114,25 @@ public class SurveyUnitFakeService implements SurveyUnitService {
                 new SurveyUnit(SURVEY_UNIT1_ID, "campaign-id", "questionnaire-id", null, null, null, null),
                 new SurveyUnit(SURVEY_UNIT2_ID, "campaign-id", "questionnaire-id", null, null, null, null)
         );
+    }
+
+    @Override
+    public List<String> findSurveyUnitsIdsWithExistingState(String campaignId) {
+        return null;
+    }
+
+    @Override
+    public List<String> findSurveyUnitsIds(String campaignId, StateDataType... stateDataTypes) {
+        return null;
+    }
+
+    @Override
+    public List<SurveyUnitState> findSurveyUnitsWithState(List<String> surveyUnits) {
+        return null;
+    }
+
+    @Override
+    public List<SurveyUnitState> findSurveyUnitsWithState(String campaignId) {
+        return null;
     }
 }

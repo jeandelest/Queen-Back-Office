@@ -1,11 +1,12 @@
 package fr.insee.queen.domain.surveyunit.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.queen.domain.common.exception.EntityNotFoundException;
 import fr.insee.queen.domain.surveyunit.gateway.SurveyUnitRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -21,7 +22,13 @@ public class DataApiService implements DataService {
     }
 
     @Override
-    public void updateData(String surveyUnitId, JsonNode dataValue) {
-        surveyUnitRepository.saveData(surveyUnitId, dataValue.toString());
+    public void updateData(String surveyUnitId, String dataValue) {
+        surveyUnitRepository.saveData(surveyUnitId, dataValue);
     }
+
+    @Override
+    public void deleteDataBySurveyUnitIds(List<String> surveyUnitIds) {
+        surveyUnitRepository.deleteDataBySurveyUnitIds(surveyUnitIds);
+    }
+
 }

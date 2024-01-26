@@ -58,6 +58,6 @@ public class CommentController {
     public void setComment(@NotNull @RequestBody ObjectNode commentValue,
                            @IdValid @PathVariable(value = "id") String surveyUnitId) {
         pilotageComponent.checkHabilitations(surveyUnitId, PilotageRole.INTERVIEWER);
-        commentService.updateComment(surveyUnitId, commentValue);
+        commentService.updateComment(surveyUnitId, commentValue.toString());
     }
 }

@@ -2,6 +2,7 @@ package fr.insee.queen.infrastructure.db.surveyunit.repository;
 
 import fr.insee.queen.domain.surveyunit.gateway.StateDataRepository;
 import fr.insee.queen.domain.surveyunit.model.StateData;
+import fr.insee.queen.domain.surveyunit.model.StateDataType;
 import fr.insee.queen.infrastructure.db.surveyunit.repository.jpa.StateDataJpaRepository;
 import fr.insee.queen.infrastructure.db.surveyunit.repository.jpa.SurveyUnitJpaRepository;
 import fr.insee.queen.infrastructure.db.surveyunit.entity.StateDataDB;
@@ -36,6 +37,11 @@ public class StateDataDao implements StateDataRepository {
         if (countUpdated == 0) {
             create(surveyUnitId, stateData);
         }
+    }
+
+    @Override
+    public void updateStateData(String surveyUnitId, StateDataType stateDataType) {
+        jpaRepository.updateStateData(surveyUnitId, stateDataType);
     }
 
     @Override

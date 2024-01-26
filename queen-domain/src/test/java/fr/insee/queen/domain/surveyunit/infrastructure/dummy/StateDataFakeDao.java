@@ -32,6 +32,11 @@ public class StateDataFakeDao implements StateDataRepository {
     }
 
     @Override
+    public void updateStateData(String surveyUnitId, StateDataType stateDataType) {
+
+    }
+
+    @Override
     public void create(String surveyUnitId, StateData stateData) {
 
     }

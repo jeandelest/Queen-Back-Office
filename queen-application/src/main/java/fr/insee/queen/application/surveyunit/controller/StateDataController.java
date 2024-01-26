@@ -77,7 +77,7 @@ public class StateDataController {
     @PostMapping(path = "survey-units/state-data")
     @PreAuthorize(AuthorityPrivileges.HAS_MANAGEMENT_PRIVILEGES)
     public SurveyUnitOkNokDto getStateDataBySurveyUnits(@NotEmpty @RequestBody List<String> surveyUnitIdsToSearch) {
-        List<SurveyUnitState> surveyUnitsFound = surveyUnitService.findWithStateByIds(surveyUnitIdsToSearch);
+        List<SurveyUnitState> surveyUnitsFound = surveyUnitService.findSurveyUnitsWithState(surveyUnitIdsToSearch);
         List<String> surveyUnitIdsFound = surveyUnitsFound.stream().map(SurveyUnitState::id).toList();
         List<SurveyUnitDto> surveyUnitsNOK = surveyUnitIdsToSearch.stream()
                 .filter(surveyUnitIdToSearch -> !surveyUnitIdsFound.contains(surveyUnitIdToSearch))

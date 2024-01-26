@@ -8,6 +8,8 @@ import java.util.List;
 public interface CampaignService {
     List<CampaignSummary> getAllCampaigns();
 
+    CampaignSummary getCampaignSummary(String campaignId);
+
     void delete(String campaignId);
 
     void createCampaign(Campaign campaignData);

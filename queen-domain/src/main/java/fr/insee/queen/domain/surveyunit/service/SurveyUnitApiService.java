@@ -108,6 +108,13 @@ public class SurveyUnitApiService implements SurveyUnitService {
 
     @Transactional
     @Override
+    public void updateSurveyUnitSummary(SurveyUnitSummary surveyUnit) {
+        throwExceptionIfSurveyUnitNotExist(surveyUnit.id());
+        surveyUnitRepository.updateSummary(surveyUnit);
+    }
+
+    @Transactional
+    @Override
     @CacheEvict(value = CacheName.SURVEY_UNIT_EXIST, key = "#surveyUnit.id")
     public void createSurveyUnit(SurveyUnit surveyUnit) throws StateDataInvalidDateException {
         throwExceptionIfSurveyUnitExist(surveyUnit.id());
@@ -141,8 +148,23 @@ public class SurveyUnitApiService implements SurveyUnitService {
     }
 
     @Override
-    public List<SurveyUnitState> findWithStateByIds(List<String> surveyUnits) {
+    public List<SurveyUnitState> findSurveyUnitsWithState(List<String> surveyUnits) {
         return surveyUnitRepository.findAllWithStateByIdIn(surveyUnits);
+    }
+
+    @Override
+    public List<SurveyUnitState> findSurveyUnitsWithState(String campaignId) {
+        return surveyUnitRepository.findWithExistingStateByCampaignId(campaignId);
+    }
+
+    @Override
+    public List<String> findSurveyUnitsIdsWithExistingState(String campaignId) {
+        return surveyUnitRepository.findIdsWithExistingState(campaignId);
+    }
+
+    @Override
+    public List<String> findSurveyUnitsIds(String campaignId, StateDataType... stateDataType) {
+        return surveyUnitRepository.findIdsWithExistingState(campaignId, stateDataType);
     }
 
     @Override

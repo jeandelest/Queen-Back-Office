@@ -21,7 +21,7 @@ public interface StateDataJpaRepository extends JpaRepository<StateDataDB, UUID>
      * Find state data for a survey unit
      *
      * @param surveyUnitId survey unit id
-     * @return {@link Optional< StateData >} state data of the survey unit
+     * @return {@link Optional<StateData>} state data of the survey unit
      */
     Optional<StateData> findBySurveyUnitId(String surveyUnitId);
 
@@ -37,6 +37,17 @@ public interface StateDataJpaRepository extends JpaRepository<StateDataDB, UUID>
     @Modifying
     @Query("UPDATE StateDataDB s SET s.currentPage=:currentPage, s.date=:date, s.state=:state WHERE s.surveyUnit.id=:surveyUnitId")
     int updateStateData(String surveyUnitId, Long date, String currentPage, StateDataType state);
+
+    /**
+     * Update state data of a survey unit
+     * @param surveyUnitId survey unit to update
+     * @param state state type
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE StateDataDB s SET s.state=:state WHERE s.surveyUnit.id=:surveyUnitId")
+    void updateStateData(String surveyUnitId, StateDataType state);
+
 
     /**
      * Delete all survey units state data linked to a campaign

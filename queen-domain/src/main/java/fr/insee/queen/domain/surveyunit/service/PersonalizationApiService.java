@@ -1,6 +1,5 @@
 package fr.insee.queen.domain.surveyunit.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.queen.domain.common.exception.EntityNotFoundException;
 import fr.insee.queen.domain.surveyunit.gateway.SurveyUnitRepository;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class PersonalizationApiService implements PersonalizationService {
     }
 
     @Override
-    public void updatePersonalization(String surveyUnitId, JsonNode personalizationValue) {
-        surveyUnitRepository.savePersonalization(surveyUnitId, personalizationValue.toString());
+    public void updatePersonalization(String surveyUnitId, String personalizationValue) {
+        surveyUnitRepository.savePersonalization(surveyUnitId, personalizationValue);
     }
 }

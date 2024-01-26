@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Campaign">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id" type="xs:string" />
+				<xs:element name="Label" type="xs:string" />
+				<xs:element ref="SurveyUnits" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="SurveyUnits" type="SurveyUnitsType">
+		<xs:unique name="unique-surveyunitid">
+			<xs:selector xpath="SurveyUnit/Id" />
+			<xs:field xpath="." />
+		</xs:unique>
+	</xs:element>
+	<xs:element name="SurveyUnit" type="SurveyUnitType" />
+	<xs:complexType name="SurveyUnitsType">
+		<xs:sequence>
+			<xs:element ref="SurveyUnit" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SurveyUnitType">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string" />
+			<xs:element name="QuestionnaireModelId" type="xs:string" />
+			<xs:element name="Data" minOccurs="0" />
+			<xs:element name="Personalization" type="Personalization" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Personalization">
+       <xs:sequence>
+         <xs:element maxOccurs="unbounded" name="Variable">
+           <xs:complexType>
+             <xs:sequence>
+               <xs:element name="Name" type="xs:string" />
+               <xs:element name="Value" type="xs:string" />
+             </xs:sequence>
+           </xs:complexType>
+         </xs:element>
+       </xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,6 +1,7 @@
 package fr.insee.queen.domain.surveyunit.gateway;
 
 import fr.insee.queen.domain.surveyunit.model.StateData;
+import fr.insee.queen.domain.surveyunit.model.StateDataType;
 
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ public interface StateDataRepository {
      * Find state data for a survey unit
      *
      * @param surveyUnitId survey unit id
-     * @return {@link Optional< StateData >} state data of the survey unit
+     * @return {@link Optional<StateData>} state data of the survey unit
      */
     Optional<StateData> find(String surveyUnitId);
 
@@ -22,6 +23,13 @@ public interface StateDataRepository {
      * @param stateData state data to save
      */
     void save(String surveyUnitId, StateData stateData);
+
+    /**
+     * Update state data type for a survey unit
+     * @param surveyUnitId survey unit id
+     * @param stateDataType state data type to update
+     */
+    void updateStateData(String surveyUnitId, StateDataType stateDataType);
 
     /**
      * Create state data for a survey unit

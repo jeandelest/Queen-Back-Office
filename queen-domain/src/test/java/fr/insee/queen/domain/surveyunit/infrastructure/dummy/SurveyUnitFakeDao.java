@@ -1,10 +1,7 @@
 package fr.insee.queen.domain.surveyunit.infrastructure.dummy;
 
 import fr.insee.queen.domain.surveyunit.gateway.SurveyUnitRepository;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnit;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitDepositProof;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitState;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitSummary;
+import fr.insee.queen.domain.surveyunit.model.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,6 +42,21 @@ public class SurveyUnitFakeDao implements SurveyUnitRepository {
     @Override
     public Optional<SurveyUnitDepositProof> findWithCampaignAndStateById(String surveyUnitId) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<String> findIdsWithExistingState(String campaignId) {
+        return null;
+    }
+
+    @Override
+    public List<SurveyUnitState> findWithExistingStateByCampaignId(String campaignId) {
+        return null;
+    }
+
+    @Override
+    public List<String> findIdsWithExistingState(String campaignId, StateDataType... stateDataTypes) {
+        return null;
     }
 
     @Override
@@ -113,6 +125,11 @@ public class SurveyUnitFakeDao implements SurveyUnitRepository {
     }
 
     @Override
+    public void updateSummary(SurveyUnitSummary surveyUnit) {
+
+    }
+
+    @Override
     public List<SurveyUnit> find(List<String> surveyUnitIds) {
         return null;
     }
@@ -120,5 +137,10 @@ public class SurveyUnitFakeDao implements SurveyUnitRepository {
     @Override
     public List<SurveyUnit> findAll() {
         return null;
+    }
+
+    @Override
+    public void deleteDataBySurveyUnitIds(List<String> surveyUnitIds) {
+
     }
 }

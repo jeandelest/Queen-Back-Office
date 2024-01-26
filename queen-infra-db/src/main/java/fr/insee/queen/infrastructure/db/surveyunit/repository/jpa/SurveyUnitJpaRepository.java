@@ -1,9 +1,6 @@
 package fr.insee.queen.infrastructure.db.surveyunit.repository.jpa;
 
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitDepositProof;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnit;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitState;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitSummary;
+import fr.insee.queen.domain.surveyunit.model.*;
 import fr.insee.queen.infrastructure.db.surveyunit.entity.SurveyUnitDB;
 import fr.insee.queen.infrastructure.db.surveyunit.projection.SurveyUnitProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -65,6 +62,15 @@ public interface SurveyUnitJpaRepository extends JpaRepository<SurveyUnitDB, Str
             )
             from SurveyUnitDB s where s.id in :surveyUnitIds""")
     List<SurveyUnitSummary> findAllSummaryByIdIn(List<String> surveyUnitIds);
+
+    /**
+     * Update summary of survey unit
+     * @param surveyUnitId survey unit id to update
+     * @param questionnaireId questionnaire id
+     * @param campaignId campaign id
+     */
+    @Query(value = "update survey_unit s set s.campaign_id=:campaignId, s.questionnaire_model_id=:questionnaireId where s.id=:surveyUnitId", nativeQuery = true)
+    void updateSummary(String surveyUnitId, String questionnaireId, String campaignId);
 
     /**
      * Retrieve a survey unit with all details
@@ -181,7 +187,53 @@ public interface SurveyUnitJpaRepository extends JpaRepository<SurveyUnitDB, Str
                 )
             )
             from SurveyUnitDB s left join s.stateData where s.id in :surveyUnitIds""")
-    List<SurveyUnitState> findAllWithStateByIdIn(List<String> surveyUnitIds);
+    List<SurveyUnitState> findAllWithState(List<String> surveyUnitIds);
+
+    /**
+     * Find survey units with state by campaign id
+     *
+     * @param campaignId campaign id
+     * @return List of {@link SurveyUnitState} survey units
+     */
+    @Query("""
+            select new fr.insee.queen.domain.surveyunit.model.SurveyUnitState(
+                s.id,
+                s.questionnaireModel.id,
+                s.campaign.id,
+                new fr.insee.queen.domain.surveyunit.model.StateData(
+                    s.stateData.state,
+                    s.stateData.date,
+                    s.stateData.currentPage
+                )
+            )
+            from SurveyUnitDB s inner join s.stateData where s.campaign.id=:campaignId""")
+    List<SurveyUnitState> findWithExistingStateByCampaignId(String campaignId);
+
+    /**
+     * Find survey units with state by campaign id
+     *
+     * @param  campaignId campaign id
+     * @return List of {@link SurveyUnitState} survey units
+     */
+    @Query("""
+            select s.id
+            from SurveyUnitDB s inner join s.stateData where s.campaign.id=:campaignId""")
+    List<String> findIdsWithExistingState(String campaignId);
+
+    /**
+     * Find survey units with existing state by campaign id and state
+     *
+     * @param campaignId campaign id
+     * @param stateDataType state data type to filter
+     * @return List of {@link SurveyUnitState} survey units
+     */
+    @Query("""
+            select s.id
+            from SurveyUnitDB s
+            inner join s.stateData
+            where s.campaign.id=:campaignId
+            and s.stateData.state in :stateDataType""")
+    List<String> findIdsWithExistingState(String campaignId, StateDataType... stateDataType);
 
     /**
      * Delete survey units linked to a campaign

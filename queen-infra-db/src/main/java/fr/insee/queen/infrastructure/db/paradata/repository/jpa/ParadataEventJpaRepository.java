@@ -1,5 +1,6 @@
 package fr.insee.queen.infrastructure.db.paradata.repository.jpa;
 
+import fr.insee.queen.domain.paradata.model.Paradata;
 import fr.insee.queen.infrastructure.db.paradata.entity.ParadataEventDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -29,6 +31,16 @@ public interface ParadataEventJpaRepository extends JpaRepository<ParadataEventD
             VALUES (:id, :paradataValue\\:\\:jsonb, :surveyUnitId)""", nativeQuery = true)
     void createParadataEvent(UUID id, String paradataValue, String surveyUnitId);
 
+    /**
+     * return paradatas for a survey unit
+     *
+     * @param surveyUnitId survey unit id
+     * @return list of {@link Paradata}
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "from ParadataEventDB p where p.surveyUnit.id=:surveyUnitId")
+    List<Paradata> findParadatasBySurveyUnitId(String surveyUnitId);
     /**
      * Delete all survey unit's paradatas for a campaign
      * @param campaignId campaign id

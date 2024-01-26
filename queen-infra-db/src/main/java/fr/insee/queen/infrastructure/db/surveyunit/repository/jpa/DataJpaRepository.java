@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,4 +58,12 @@ public interface DataJpaRepository extends JpaRepository<DataDB, UUID> {
     @Transactional
     @Modifying
     void deleteBySurveyUnitId(String surveyUnitId);
+
+    /**
+     * Delete data for a survey unit list
+     * @param surveyUnitIds survey unit ids
+     */
+    @Transactional
+    @Modifying
+    void deleteBySurveyUnitIdIn(List<String> surveyUnitIds);
 }

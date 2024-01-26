@@ -1,10 +1,7 @@
 package fr.insee.queen.infrastructure.db.surveyunit.repository;
 
 import fr.insee.queen.domain.surveyunit.gateway.SurveyUnitRepository;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnit;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitDepositProof;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitState;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitSummary;
+import fr.insee.queen.domain.surveyunit.model.*;
 import fr.insee.queen.infrastructure.db.campaign.entity.CampaignDB;
 import fr.insee.queen.infrastructure.db.campaign.entity.QuestionnaireModelDB;
 import fr.insee.queen.infrastructure.db.campaign.repository.jpa.CampaignJpaRepository;
@@ -76,7 +73,22 @@ public class SurveyUnitDao implements SurveyUnitRepository {
 
     @Override
     public List<SurveyUnitState> findAllWithStateByIdIn(List<String> surveyUnitIds) {
-        return crudRepository.findAllWithStateByIdIn(surveyUnitIds);
+        return crudRepository.findAllWithState(surveyUnitIds);
+    }
+
+    @Override
+    public List<String> findIdsWithExistingState(String campaignId) {
+        return crudRepository.findIdsWithExistingState(campaignId);
+    }
+
+    @Override
+    public List<SurveyUnitState> findWithExistingStateByCampaignId(String campaignId) {
+        return crudRepository.findWithExistingStateByCampaignId(campaignId);
+    }
+
+    @Override
+    public List<String> findIdsWithExistingState(String campaignId, StateDataType... stateDataTypes) {
+        return crudRepository.findIdsWithExistingState(campaignId, stateDataTypes);
     }
 
     @Override
@@ -186,6 +198,11 @@ public class SurveyUnitDao implements SurveyUnitRepository {
     }
 
     @Override
+    public void updateSummary(SurveyUnitSummary surveyUnit) {
+        crudRepository.updateSummary(surveyUnit.id(), surveyUnit.questionnaireId(), surveyUnit.campaignId());
+    }
+
+    @Override
     public List<SurveyUnit> find(List<String> surveyUnitIds) {
         return crudRepository.findSurveyUnitsByIdIn(surveyUnitIds).stream()
                 .map(SurveyUnitProjection::toModel)
@@ -197,6 +214,11 @@ public class SurveyUnitDao implements SurveyUnitRepository {
         return crudRepository.findAllSurveyUnits().stream()
                 .map(SurveyUnitProjection::toModel)
                 .toList();
+    }
+
+    @Override
+    public void deleteDataBySurveyUnitIds(List<String> surveyUnitIds) {
+        dataRepository.deleteBySurveyUnitIdIn(surveyUnitIds);
     }
 
 

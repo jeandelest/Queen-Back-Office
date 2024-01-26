@@ -1,6 +1,5 @@
 package fr.insee.queen.domain.surveyunit.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.queen.domain.common.exception.EntityNotFoundException;
 import fr.insee.queen.domain.surveyunit.gateway.SurveyUnitRepository;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class CommentApiService implements CommentService {
     }
 
     @Override
-    public void updateComment(String surveyUnitId, JsonNode commentValue) {
-        surveyUnitRepository.saveComment(surveyUnitId, commentValue.toString());
+    public void updateComment(String surveyUnitId, String commentValue) {
+        surveyUnitRepository.saveComment(surveyUnitId, commentValue);
     }
 }

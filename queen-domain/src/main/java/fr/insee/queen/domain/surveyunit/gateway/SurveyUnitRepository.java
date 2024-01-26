@@ -1,9 +1,6 @@
 package fr.insee.queen.domain.surveyunit.gateway;
 
-import fr.insee.queen.domain.surveyunit.model.SurveyUnit;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitDepositProof;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitState;
-import fr.insee.queen.domain.surveyunit.model.SurveyUnitSummary;
+import fr.insee.queen.domain.surveyunit.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,12 +42,37 @@ public interface SurveyUnitRepository {
     Optional<SurveyUnit> find(String surveyUnitId);
 
     /**
-     * Retrieve a survey unit with campaign and state data linked (used for deposit proof)
+     * Retrieve a survey unit with campaign and state data linked
      *
      * @param surveyUnitId survey unit id
      * @return {@link SurveyUnitDepositProof} survey unit
      */
     Optional<SurveyUnitDepositProof> findWithCampaignAndStateById(String surveyUnitId);
+
+    /**
+     * Retrieve survey units with state by campaign
+     *
+     * @param campaignId campaign on which we retrieve survey units
+     * @return survey units ids
+     */
+    List<String> findIdsWithExistingState(String campaignId);
+
+    /**
+     * Retrieve survey units with state by campaign
+     *
+     * @param campaignId campaign on which we retrieve survey units
+     * @return {@link SurveyUnitState} survey units
+     */
+    List<SurveyUnitState> findWithExistingStateByCampaignId(String campaignId);
+
+    /**
+     * Retrieve survey units with specific state by campaign
+     *
+     * @param campaignId campaign on which we retrieve survey units
+     * @param stateDataTypes states to filter on
+     * @return survey units
+     */
+    List<String> findIdsWithExistingState(String campaignId, StateDataType... stateDataTypes);
 
     /**
      * Find all survey unit ids
@@ -150,6 +172,12 @@ public interface SurveyUnitRepository {
     void updateInfos(SurveyUnit surveyUnit);
 
     /**
+     * Update survey unit summary (questionnaire id/ campaign id)
+     * @param surveyUnit survey unit to update
+     */
+    void updateSummary(SurveyUnitSummary surveyUnit);
+
+    /**
      *
      * @param surveyUnitIds list of survey unit ids to find
      * @return List of {@link SurveyUnit} survey units found
@@ -162,4 +190,11 @@ public interface SurveyUnitRepository {
      * @return List of {@link SurveyUnit} all survey units
      */
     List<SurveyUnit> findAll();
+
+    /**
+     * Delete data for survey units
+     *
+     * @param surveyUnitIds survey unit ids
+     */
+    void deleteDataBySurveyUnitIds(List<String> surveyUnitIds);
 }

@@ -54,6 +54,6 @@ public class PersonalizationController {
     public void setPersonalization(@IdValid @PathVariable(value = "id") String surveyUnitId,
                                    @NotNull @RequestBody ArrayNode personalizationValues) {
         pilotageComponent.checkHabilitations(surveyUnitId, PilotageRole.INTERVIEWER);
-        personalizationService.updatePersonalization(surveyUnitId, personalizationValues);
+        personalizationService.updatePersonalization(surveyUnitId, personalizationValues.toString());
     }
 }

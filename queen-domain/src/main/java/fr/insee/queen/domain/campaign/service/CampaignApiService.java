@@ -35,6 +35,14 @@ public class CampaignApiService implements CampaignService {
     }
 
     @Transactional
+    @Override
+    public CampaignSummary getCampaignSummary(String campaignId) {
+        return campaignRepository.
+                findWithQuestionnaireIds(campaignId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Campaign %s not found", campaignId)));
+    }
+
+    @Transactional
     @CacheEvict(CacheName.CAMPAIGN_EXIST)
     @Override
     public void delete(String campaignId) {
