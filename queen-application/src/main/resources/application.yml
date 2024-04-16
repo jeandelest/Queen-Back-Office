@@ -45,10 +45,10 @@ feature:
     enabled: false
   interviewer-mode:
     enabled: false
+  mongo:
+    enabled: false
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   datasource:
     hikari:
       minimum-idle: 2
@@ -84,6 +84,11 @@ spring:
   profiles:
     group:
       cache-testing: test,test-cache
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+    - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+    - org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration
 
 springdoc:
   swagger-ui:
