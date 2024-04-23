@@ -5,9 +5,9 @@ Spring:
   application:
     name: queen-listener-jms
   datasource:
-    url: ${URL_JDBC}
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    url: jdbc:postgresql://localhost:5432/queen
+    username: insee
+    password: lille
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 2
