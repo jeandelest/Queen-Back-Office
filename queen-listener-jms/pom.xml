@@ -11,7 +11,6 @@
     </parent>
 
     <artifactId>queen-listener-jms</artifactId>
-    <!--    <version>4.0.10</version>-->
 
     <dependencies>
         <dependency>
@@ -26,6 +25,11 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Cache -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,39 +42,15 @@
             <version>${caffeine.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.activemq/artemis-jms-server -->
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jms-server</artifactId>
-            <version>2.32.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-activemq</artifactId>
-        </dependency>
-
-        <!--        https://activemq.apache.org/how-should-i-implement-request-response-with-jms-->
-        <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-broker -->
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-            <version>6.0.1</version>
-            <!--            <version>5.18.3</version>-->
+            <artifactId>spring-boot-starter-artemis</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-            <version>1.12.3</version>
-        </dependency>
-
-
     </dependencies>
 
     <build>
